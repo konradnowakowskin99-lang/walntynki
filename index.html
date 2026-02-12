@@ -5,42 +5,41 @@
   <title>Dla Ciebie ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Fonty -->
+  <!-- Czcionki: Dancing Script (ręczne), Playfair (tytuły), Poppins (tekst) -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- Font do efektu "Matrix/Tech" (opcjonalnie) -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-
+  
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- INTRO: CZARNE TŁO I ANIMACJA SERCA -->
+  <!-- EKRAN POWITALNY: NIEBIESKIE SERCE 3D -->
   <div id="intro-overlay">
     <canvas id="heart-canvas"></canvas>
     <div class="intro-text">
-      <h1 class="neon-text">I Love You</h1>
-      <p class="subtitle">Kliknij w serce, aby rozpocząć...</p>
+      <!-- Napis w stylu Blue Neon -->
+      <h1 class="blue-neon">I Love You</h1>
+      <p class="subtitle">Kliknij w serce...</p>
     </div>
   </div>
 
-  <!-- ODTWARZACZ MUZYKI (Ukryty) -->
+  <!-- ODTWARZACZ MUZYKI -->
   <audio id="bgMusic" loop>
-    <!-- UPEWNIJ SIĘ, ŻE PLIK MA NAZWĘ muzyka.mp3 -->
+    <!-- Upewnij się, że plik nazywa się muzyka.mp3 i jest w folderze -->
     <source src="muzyka.mp3" type="audio/mpeg">
   </audio>
   <button id="musicBtn" class="music-btn">🎵 Muzyka</button>
 
-  <!-- GŁÓWNA STRONA -->
+  <!-- GŁÓWNA ZAWARTOŚĆ STRONY (Ukryta na początku) -->
   <div id="main-content">
     
-    <!-- HERO -->
+    <!-- HERO (Sekcja powitalna) -->
     <section class="hero">
       <div class="parallax layer bg"></div>
       <div class="parallax layer hearts-layer"></div>
 
       <div class="hero-content">
         <h1 class="fade-in">Dla mojej ukochanej</h1>
-        <h2 class="fade-in delay-1">[IMIĘ DZIEWCZYNY]</h2>
+        <h2 class="fade-in delay-1">[IMIĘ TWOJEJ DZIEWCZYNY]</h2>
         <p class="fade-in delay-2">
           „Każda historia miłości jest piękna,<br>
           ale nasza jest moją ulubioną.”
@@ -57,29 +56,28 @@
       <div class="timeline">
         <div class="card reveal">
           <h3>❤️ Pierwsze spotkanie</h3>
-          <p>Pamiętasz ten dzień? Od tego momentu wszystko się zmieniło.</p>
+          <p>Ten dzień zmienił wszystko. Wiedziałem, że to Ty.</p>
           <span class="date">14.02.2022</span>
         </div>
         <div class="card reveal">
-          <h3>🌍 Nasz pierwszy wyjazd</h3>
-          <p>Wspólne podróże to najpiękniejsze wspomnienia.</p>
+          <h3>🌍 Nasz świat</h3>
+          <p>Wspólne chwile, wyjazdy i zwykła codzienność z Tobą to skarb.</p>
         </div>
         <div class="card reveal">
-          <h3>✨ Dziś</h3>
-          <p>Dziękuję Ci za każdą wspólną chwilę.</p>
+          <h3>✨ Teraz</h3>
+          <p>Kocham Cię bardziej z każdym dniem.</p>
         </div>
       </div>
     </section>
 
-    <!-- GALERIA -->
+    <!-- GALERIA (Pamiętaj o zdjęciach foto1.jpg itd.) -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
       <div class="gallery">
-        <!-- Pamiętaj o wgraniu zdjęć: foto1.jpg, foto2.jpg itd. -->
-        <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="Foto 1"></div>
-        <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="Foto 2"></div>
-        <div class="photo-wrapper reveal"><img src="foto3.jpg" alt="Foto 3"></div>
-        <div class="photo-wrapper reveal"><img src="foto4.jpg" alt="Foto 4"></div>
+        <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="Nasze zdjęcie 1"></div>
+        <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="Nasze zdjęcie 2"></div>
+        <div class="photo-wrapper reveal"><img src="foto3.jpg" alt="Nasze zdjęcie 3"></div>
+        <div class="photo-wrapper reveal"><img src="foto4.jpg" alt="Nasze zdjęcie 4"></div>
       </div>
     </section>
 
@@ -97,10 +95,10 @@
       <div class="paper reveal">
         <p class="handwriting">
           Kochanie,<br><br>
+          Jesteś moim marzeniem, które się spełniło. 
           Nie potrzebuję specjalnej okazji, by powiedzieć Ci, jak bardzo Cię kocham.
-          Jesteś moim szczęściem, moim wsparciem i moim najlepszym przyjacielem.
           <br><br>
-          Z Tobą świat jest piękniejszy.
+          Dziękuję, że jesteś.
           <br><br>
           Twój [Twoje Imię]
         </p>
