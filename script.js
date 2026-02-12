@@ -1,122 +1,207 @@
-/* --- KONFIGURACJA --- */
-// WPISZ TU DATĘ ROZPOCZĘCIA ZWIĄZKU (Rok, Miesiąc-1, Dzień)
-// Uwaga: Miesiące liczymy od 0 (Styczeń=0, Luty=1, ...)!
-// Przykład dla 14 Lutego 2022:
-const startDate = new Date(2022, 1, 14); 
+/* --- KONFIGURACJA DATY --- */
+const startDate = new Date(2022, 1, 14); // ROK, MIESIĄC (0=Styczeń, 1=Luty), DZIEŃ
 
-/* --- LICZNIK DNI --- */
-const today = new Date();
-const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-document.getElementById("days").innerText = diff;
+/* --- PARTICLE HEART ANIMATION (Intro) --- */
+const canvas = document.getElementById("heart-canvas");
+const ctx = canvas.getContext("2d");
 
-/* --- MUZYKA --- */
-const musicBtn = document.getElementById('musicBtn');
-const audio = document.getElementById('bgMusic');
-let isPlaying = false;
+let width, height;
+let particles = [];
+const particleCount = 400; // Ilość cząsteczek (zmniejsz jeśli telefon się zacina)
 
-musicBtn.addEventListener('click', () => {
-  if (isPlaying) {
-    audio.pause();
-    musicBtn.innerText = "🎵 Włącz naszą piosenkę";
-  } else {
-    audio.play().catch(e => alert("Kliknij stronę, aby odtworzyć muzykę!")); // Fix dla przeglądarek
-    musicBtn.innerText = "⏸️ Pauza";
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Matematyczny wzór serca
+function getHeartPoint(t) {
+  const scale = Math.min(width, height) / 35; // Skala wielkości serca
+  const x = 16 * Math.pow(Math.sin(t), 3);
+  const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+  return {
+    x: width / 2 + x * scale,
+    y: height / 2 + y * scale
+  };
+}
+
+class Particle {
+  constructor() {
+    this.respawn();
   }
-  isPlaying = !isPlaying;
+
+  respawn() {
+    // Losowa pozycja startowa (wybuch ze środka lub losowo z ekranu)
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    
+    // Losowy cel na obwodzie serca
+    const t = Math.random() * Math.PI * 2;
+    const target = getHeartPoint(t);
+    this.tx = target.x;
+    this.ty = target.y;
+    
+    this.speed = Math.random() * 0.05 + 0.02; // Prędkość przyciągania
+    this.size = Math.random() * 2 + 1;
+    
+    // Kolor cząsteczki: Czerwony/Różowy/Biały neon
+    const colors = ["#ff3366", "#ff6699", "#ffffff", "#ff0000"];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  update() {
+    // Ruch w stronę celu (lerp)
+    this.x += (this.tx - this.x) * this.speed;
+    this.y += (this.ty - this.y) * this.speed;
+    
+    // Efekt "drżenia" (żyjące serce)
+    if (Math.abs(this.tx - this.x) < 5 && Math.abs(this.ty - this.y) < 5) {
+      this.x += (Math.random() - 0.5) * 2;
+      this.y += (Math.random() - 0.5) * 2;
+    }
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+// Inicjalizacja cząsteczek
+for (let i = 0; i < particleCount; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  // Efekt smugi (lekko przezroczyste tło zamiast czyszczenia)
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+  ctx.fillRect(0, 0, width, height);
+
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+
+/* --- PRZEJŚCIE Z INTRO DO STRONY --- */
+const introOverlay = document.getElementById('intro-overlay');
+const mainContent = document.getElementById('main-content');
+const audio = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let isMusicPlaying = false;
+
+// Kliknięcie w Intro uruchamia wszystko
+introOverlay.addEventListener('click', () => {
+  // 1. Fade out Intro
+  introOverlay.style.opacity = '0';
+  setTimeout(() => {
+    introOverlay.style.display = 'none';
+  }, 1500);
+
+  // 2. Fade in Strony
+  mainContent.classList.add('visible');
+  
+  // 3. Start Muzyki
+  audio.volume = 0.5;
+  audio.play().then(() => {
+    isMusicPlaying = true;
+    musicBtn.innerText = "⏸️ Pauza";
+  }).catch(e => console.log("Audio block", e));
+
+  // 4. Uruchom liczniki i animacje na stronie
+  startSiteLogic();
 });
 
-/* --- EFEKT KLIKNIĘCIA (SERDUSZKA) --- */
-document.addEventListener('click', (e) => {
-  // Nie twórz serca jeśli kliknięto w przycisk (żeby nie zasłaniać)
-  if(e.target.tagName === 'BUTTON') return;
 
-  const heart = document.createElement('div');
-  heart.classList.add('click-heart');
-  heart.innerText = '❤️';
-  heart.style.left = (e.pageX - 10) + 'px';
-  heart.style.top = (e.pageY - 10) + 'px';
-  document.body.appendChild(heart);
+/* --- LOGIKA STRONY GŁÓWNEJ --- */
+function startSiteLogic() {
+  // Licznik dni
+  const today = new Date();
+  const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+  document.getElementById("days").innerText = diff;
 
-  // Usuń po animacji
-  setTimeout(() => heart.remove(), 1000);
-});
-
-/* --- SCROLL REVEAL (Pojawianie się elementów) --- */
-const reveals = document.querySelectorAll(".reveal");
-
-function checkReveal() {
-  const triggerBottom = window.innerHeight * 0.85;
-  reveals.forEach(el => {
-    const boxTop = el.getBoundingClientRect().top;
-    if (boxTop < triggerBottom) {
-      el.classList.add("active");
+  // Scroll Reveal
+  const reveals = document.querySelectorAll(".reveal");
+  window.addEventListener("scroll", () => {
+    const triggerBottom = window.innerHeight * 0.85;
+    reveals.forEach(el => {
+      if (el.getBoundingClientRect().top < triggerBottom) el.classList.add("active");
+    });
+    
+    // Parallax (tylko PC)
+    if(window.innerWidth > 768) {
+      document.querySelectorAll(".parallax").forEach(layer => {
+        const speed = layer.classList.contains("bg") ? 0.2 : 0.4;
+        layer.style.transform = `translateY(${window.scrollY * speed}px)`;
+      });
     }
   });
 }
-window.addEventListener("scroll", checkReveal);
-checkReveal(); // Uruchom raz na starcie
 
-/* --- PARALLAX (Tło) --- */
-const layers = document.querySelectorAll(".parallax");
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  // Wyłącz parallax na telefonach dla wydajności
-  if (window.innerWidth > 768) {
-    layers.forEach(layer => {
-      let speed = layer.classList.contains("bg") ? 0.2 : 0.4;
-      layer.style.transform = `translateY(${scrollY * speed}px)`;
-    });
+// Obsługa przycisku muzyki na dole
+musicBtn.addEventListener('click', () => {
+  if (isMusicPlaying) {
+    audio.pause();
+    musicBtn.innerText = "🎵 Muzyka";
+  } else {
+    audio.play();
+    musicBtn.innerText = "⏸️ Pauza";
   }
+  isMusicPlaying = !isMusicPlaying;
 });
 
-/* --- SCROLL DO POCZĄTKU --- */
+// Scroll do sekcji historii
 document.getElementById("startBtn").addEventListener("click", () => {
-  document.querySelector(".timeline").scrollIntoView({ 
-    behavior: "smooth" 
-  });
+  document.querySelector(".timeline").scrollIntoView({ behavior: "smooth" });
 });
 
-/* --- WALENTYNKOWE PYTANIE (Uciekający przycisk) --- */
+// Efekt serduszek przy klikaniu (globalny)
+document.addEventListener('click', (e) => {
+  if(e.target.closest('#intro-overlay') || e.target.tagName === 'BUTTON') return;
+  
+  const heart = document.createElement('div');
+  heart.innerText = '❤️';
+  heart.className = 'click-heart';
+  heart.style.left = (e.pageX - 10) + 'px';
+  heart.style.top = (e.pageY - 10) + 'px';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 1000);
+});
+
+// Pytanie Walentynkowe (Uciekający przycisk)
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 
-// Przycisk "Nie" ucieka przed myszką/dotykiem
-noBtn.addEventListener('mouseover', moveButton);
-noBtn.addEventListener('touchstart', moveButton); // Dla telefonów
+if(noBtn && yesBtn) {
+  const moveBtn = () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+  };
+  noBtn.addEventListener('mouseover', moveBtn);
+  noBtn.addEventListener('touchstart', moveBtn);
 
-function moveButton() {
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
-  
-  noBtn.style.position = 'fixed'; // Zmiana na fixed, żeby uciekał po całym ekranie
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-}
-
-// Reakcja na "Tak"
-yesBtn.addEventListener('click', () => {
-  // Proste konfetti z emotek
-  for(let i=0; i<50; i++) {
-    createConfetti();
-  }
-  setTimeout(() => alert("Wiedziałem! Kocham Cię! ❤️❤️❤️"), 200);
-});
-
-function createConfetti() {
-  const heart = document.createElement('div');
-  heart.innerText = Math.random() > 0.5 ? '❤️' : '🌹';
-  heart.style.position = 'fixed';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.top = '-10vh';
-  heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
-  heart.style.transition = 'transform 3s linear, opacity 3s';
-  heart.style.zIndex = '9999';
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.style.transform = `translateY(110vh) rotate(${Math.random()*360}deg)`;
-    heart.style.opacity = '0';
-  }, 100);
-
-  setTimeout(() => heart.remove(), 3000);
+  yesBtn.addEventListener('click', () => {
+    // Konfetti
+    for(let i=0; i<50; i++) {
+      const h = document.createElement('div');
+      h.innerText = Math.random()>0.5 ? '❤️':'🌹';
+      h.style.position='fixed'; h.style.left=Math.random()*100+'vw'; h.style.top='-10vh';
+      h.style.fontSize=Math.random()*2+1+'rem'; h.style.zIndex='9999';
+      h.style.transition='3s';
+      document.body.appendChild(h);
+      setTimeout(()=> { h.style.transform=`translateY(110vh)`; h.style.opacity='0'; },100);
+      setTimeout(()=> h.remove(), 3000);
+    }
+    setTimeout(() => alert("Wiedziałem! Kocham Cię! ❤️"), 500);
+  });
 }
