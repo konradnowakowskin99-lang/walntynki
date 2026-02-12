@@ -5,41 +5,39 @@
   <title>Dla Ciebie ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Czcionki: Dancing Script (ręczne), Playfair (tytuły), Poppins (tekst) -->
+  <!-- Fonty -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- EKRAN POWITALNY: NIEBIESKIE SERCE 3D -->
+  <!-- EKRAN POWITALNY: BIG BLUE HEART 3D -->
   <div id="intro-overlay">
     <canvas id="heart-canvas"></canvas>
     <div class="intro-text">
-      <!-- Napis w stylu Blue Neon -->
       <h1 class="blue-neon">I Love You</h1>
       <p class="subtitle">Kliknij w serce...</p>
     </div>
   </div>
 
-  <!-- ODTWARZACZ MUZYKI -->
+  <!-- MUZYKA -->
   <audio id="bgMusic" loop>
-    <!-- Upewnij się, że plik nazywa się muzyka.mp3 i jest w folderze -->
     <source src="muzyka.mp3" type="audio/mpeg">
   </audio>
   <button id="musicBtn" class="music-btn">🎵 Muzyka</button>
 
-  <!-- GŁÓWNA ZAWARTOŚĆ STRONY (Ukryta na początku) -->
+  <!-- GŁÓWNA STRONA -->
   <div id="main-content">
     
-    <!-- HERO (Sekcja powitalna) -->
+    <!-- HERO -->
     <section class="hero">
       <div class="parallax layer bg"></div>
       <div class="parallax layer hearts-layer"></div>
 
       <div class="hero-content">
         <h1 class="fade-in">Dla mojej ukochanej</h1>
-        <h2 class="fade-in delay-1">[IMIĘ TWOJEJ DZIEWCZYNY]</h2>
+        <h2 class="fade-in delay-1">[IMIĘ]</h2>
         <p class="fade-in delay-2">
           „Każda historia miłości jest piękna,<br>
           ale nasza jest moją ulubioną.”
@@ -55,13 +53,13 @@
       <h2 class="section-title">Nasza historia</h2>
       <div class="timeline">
         <div class="card reveal">
-          <h3>❤️ Pierwsze spotkanie</h3>
-          <p>Ten dzień zmienił wszystko. Wiedziałem, że to Ty.</p>
+          <h3>❤️ Początek</h3>
+          <p>Dzień, który zmienił wszystko.</p>
           <span class="date">14.02.2022</span>
         </div>
         <div class="card reveal">
-          <h3>🌍 Nasz świat</h3>
-          <p>Wspólne chwile, wyjazdy i zwykła codzienność z Tobą to skarb.</p>
+          <h3>🌍 Nasz czas</h3>
+          <p>Każda wspólna chwila to skarb.</p>
         </div>
         <div class="card reveal">
           <h3>✨ Teraz</h3>
@@ -70,14 +68,14 @@
       </div>
     </section>
 
-    <!-- GALERIA (Pamiętaj o zdjęciach foto1.jpg itd.) -->
+    <!-- GALERIA -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
       <div class="gallery">
-        <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="Nasze zdjęcie 1"></div>
-        <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="Nasze zdjęcie 2"></div>
-        <div class="photo-wrapper reveal"><img src="foto3.jpg" alt="Nasze zdjęcie 3"></div>
-        <div class="photo-wrapper reveal"><img src="foto4.jpg" alt="Nasze zdjęcie 4"></div>
+        <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="Foto 1"></div>
+        <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="Foto 2"></div>
+        <div class="photo-wrapper reveal"><img src="foto3.jpg" alt="Foto 3"></div>
+        <div class="photo-wrapper reveal"><img src="foto4.jpg" alt="Foto 4"></div>
       </div>
     </section>
 
@@ -95,10 +93,7 @@
       <div class="paper reveal">
         <p class="handwriting">
           Kochanie,<br><br>
-          Jesteś moim marzeniem, które się spełniło. 
-          Nie potrzebuję specjalnej okazji, by powiedzieć Ci, jak bardzo Cię kocham.
-          <br><br>
-          Dziękuję, że jesteś.
+          Dziękuję Ci za wszystko. Jesteś moim szczęściem.
           <br><br>
           Twój [Twoje Imię]
         </p>
@@ -107,17 +102,15 @@
 
     <!-- PYTANIE -->
     <section class="section proposal">
-      <h2 class="section-title">Mam pytanie...</h2>
-      <p style="font-size: 1.4rem;">Czy zostaniesz moją Walentynką? 🌹</p>
+      <h2 class="section-title">Pytanie...</h2>
+      <p style="font-size: 1.4rem;">Zostaniesz moją Walentynką? 🌹</p>
       <div class="buttons-container">
         <button id="yesBtn">TAK! ❤️</button>
         <button id="noBtn">Nie...</button>
       </div>
     </section>
 
-    <footer>
-      Stworzone z miłością ❤️ 2024
-    </footer>
+    <footer>❤️ 2024</footer>
   </div>
 
   <script src="script.js"></script>
