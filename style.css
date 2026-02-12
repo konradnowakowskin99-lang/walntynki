@@ -1,7 +1,8 @@
 :root {
   --pink: #f6c1cc;
-  --light: #fff7f9;
+  --bg-gradient: radial-gradient(circle at top, #fff7f9, #f6c1cc, #e89aa8);
   --dark: #8b2f3c;
+  --text-col: #5a1e26;
 }
 
 * {
@@ -11,31 +12,68 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: var(--light);
-  color: var(--dark);
+  background: #fff7f9;
+  color: var(--text-col);
   overflow-x: hidden;
 }
 
-/* HERO + PARALLAX */
+/* PRZYCISK MUZYKI */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--dark);
+  border-radius: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.music-btn:hover {
+  background: var(--dark);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* EFEKT KLIKNIĘCIA SERCA */
+.click-heart {
+  position: absolute;
+  pointer-events: none;
+  animation: flyUp 1s ease-out forwards;
+  font-size: 1.5rem;
+  z-index: 9999;
+}
+@keyframes flyUp {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+}
+
+/* HERO */
 .hero {
   position: relative;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .layer {
   position: absolute;
   inset: 0;
+  will-change: transform;
 }
 
 .bg {
-  background: radial-gradient(circle at top, #fff7f9, #f6c1cc, #e89aa8);
+  background: var(--bg-gradient);
   animation: bgFlow 20s ease-in-out infinite alternate;
-}
-
-@keyframes bgFlow {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(12deg); }
+  z-index: -2;
 }
 
 .hearts-layer::before {
@@ -46,157 +84,228 @@ body {
   font-size: 2rem;
   opacity: 0.15;
   animation: floatUp 30s linear infinite;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-200vh); }
+  text-align: center;
+  white-space: pre-wrap;
 }
 
 .hero-content {
-  position: relative;
-  z-index: 3;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  z-index: 10;
+  padding: 20px;
 }
 
-/* HERO TEXT */
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  color: var(--dark);
 }
-
 .hero h2 {
   font-size: 2rem;
+  font-weight: 300;
   margin: 0;
 }
 
 .hero button {
-  margin-top: 30px;
-  padding: 14px 34px;
+  margin-top: 40px;
+  padding: 15px 40px;
   border: none;
-  border-radius: 30px;
+  border-radius: 50px;
   background: var(--dark);
   color: white;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.4s, box-shadow 0.4s;
 }
-
 .hero button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 15px 40px rgba(139,47,60,0.4);
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(139,47,60,0.4);
 }
 
-/* SECTIONS */
+/* SEKCJE OGÓLNE */
 .section {
-  padding: 100px 20px;
+  padding: 80px 20px;
   text-align: center;
 }
-
 .section.alt {
-  background: #fbe4ea;
+  background: #fff0f3;
 }
-
 .section-title {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
+  color: var(--dark);
 }
 
-/* TIMELINE CARDS */
+/* TIMELINE */
 .timeline {
   max-width: 700px;
   margin: auto;
 }
-
 .card {
   background: white;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 30px;
-  margin-bottom: 40px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  transition: transform 0.6s cubic-bezier(.22,1,.36,1),
-              box-shadow 0.6s;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+  position: relative;
 }
-
 .card:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(139,47,60,0.25);
+  transform: translateY(-5px);
+}
+.card h3 {
+  color: var(--dark);
+  margin-top: 0;
+}
+.date {
+  font-size: 0.8rem;
+  color: #999;
+  font-style: italic;
 }
 
-/* GALLERY */
+/* GALERIA */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   max-width: 900px;
   margin: auto;
 }
-
-.photo {
-  height: 260px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #f6c1cc, #e89aa8);
+.photo-wrapper {
+  height: 300px;
+  border-radius: 15px;
   overflow: hidden;
-  transition: transform 1.2s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.5s;
+}
+.photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.photo-wrapper:hover {
+  transform: scale(1.02);
+}
+.photo-wrapper:hover img {
+  transform: scale(1.1);
 }
 
-.photo:hover {
-  transform: scale(1.05);
-}
-
-/* COUNTER */
+/* LICZNIK */
 .counter {
-  font-size: 3rem;
-  font-weight: 500;
-  animation: pulse 2s ease-in-out infinite;
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--dark);
+  animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+/* LIST - EFEKT PAPIERU */
+.letter-section {
+  background: var(--dark);
+  color: white;
 }
-
-/* LETTER */
-.letter {
-  max-width: 700px;
+.letter-section .section-title {
+  color: #fff;
+}
+.paper {
+  max-width: 600px;
   margin: auto;
+  background: #fff;
+  color: #333;
+  padding: 40px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  transform: rotate(-1deg);
+}
+.handwriting {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  text-align: left;
+  /* Linie zeszytu */
+  background-image: linear-gradient(#eee .1rem, transparent .1rem);
+  background-size: 100% 2rem;
+}
+
+/* PYTANIE WALENTYNKOWE */
+.proposal {
+  padding-bottom: 100px;
+}
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  height: 60px; /* Rezerwacja miejsca */
+}
+#yesBtn, #noBtn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#yesBtn {
+  background: #28a745;
+  color: white;
+}
+#yesBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
+}
+#noBtn {
+  background: #dc3545;
+  color: white;
 }
 
 /* FOOTER */
 footer {
   padding: 40px;
   text-align: center;
-  background: var(--dark);
-  color: white;
+  font-size: 0.9rem;
+  color: #888;
 }
 
-/* ANIMATIONS */
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 1.5s forwards;
+/* ANIMACJE KLUCZOWE */
+@keyframes bgFlow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(15deg); }
 }
-
-.delay-1 { animation-delay: 0.5s; }
-.delay-2 { animation-delay: 1s; }
-.delay-3 { animation-delay: 1.5s; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: 1s;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
 }
-
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 1.5s; }
+.delay-3 { animation-delay: 2.5s; }
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* RESPONSYWNOŚĆ (TELEFONY) */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.2rem; }
+  .counter { font-size: 3rem; }
+  .paper { padding: 20px; }
+  .handwriting { font-size: 1.4rem; line-height: 2rem; }
 }
