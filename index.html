@@ -5,126 +5,122 @@
   <title>Dla Ciebie ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Fonts: Playfair (tytuły), Poppins (tekst), Dancing Script (list) -->
+  <!-- Fonty -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Font do efektu "Matrix/Tech" (opcjonalnie) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ODTWARZACZ MUZYKI -->
+  <!-- INTRO: CZARNE TŁO I ANIMACJA SERCA -->
+  <div id="intro-overlay">
+    <canvas id="heart-canvas"></canvas>
+    <div class="intro-text">
+      <h1 class="neon-text">I Love You</h1>
+      <p class="subtitle">Kliknij w serce, aby rozpocząć...</p>
+    </div>
+  </div>
+
+  <!-- ODTWARZACZ MUZYKI (Ukryty) -->
   <audio id="bgMusic" loop>
+    <!-- UPEWNIJ SIĘ, ŻE PLIK MA NAZWĘ muzyka.mp3 -->
     <source src="muzyka.mp3" type="audio/mpeg">
   </audio>
-  <button id="musicBtn" class="music-btn">🎵 Włącz naszą piosenkę</button>
+  <button id="musicBtn" class="music-btn">🎵 Muzyka</button>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="parallax layer bg"></div>
-    <div class="parallax layer hearts-layer"></div>
+  <!-- GŁÓWNA STRONA -->
+  <div id="main-content">
+    
+    <!-- HERO -->
+    <section class="hero">
+      <div class="parallax layer bg"></div>
+      <div class="parallax layer hearts-layer"></div>
 
-    <div class="hero-content">
-      <h1 class="fade-in">Dla mojej ukochanej</h1>
-      <h2 class="fade-in delay-1">[TUTAJ WPISZ JEJ IMIĘ]</h2>
-      <p class="fade-in delay-2">
-        „Każda historia miłości jest piękna,<br>
-        ale nasza jest moją ulubioną.”
-      </p>
-      <button id="startBtn" class="fade-in delay-3">
-        Zacznij naszą historię ↓
-      </button>
-    </div>
-  </section>
-
-  <!-- HISTORIA (TIMELINE) -->
-  <section class="section">
-    <h2 class="section-title">Nasza historia</h2>
-
-    <div class="timeline">
-      <div class="card reveal">
-        <h3>❤️ Pierwsze spotkanie</h3>
-        <p>Pamiętasz ten dzień? Od tego momentu wszystko zaczęło mieć sens.</p>
-        <span class="date">Data: 14.02.2022</span>
+      <div class="hero-content">
+        <h1 class="fade-in">Dla mojej ukochanej</h1>
+        <h2 class="fade-in delay-1">[IMIĘ DZIEWCZYNY]</h2>
+        <p class="fade-in delay-2">
+          „Każda historia miłości jest piękna,<br>
+          ale nasza jest moją ulubioną.”
+        </p>
+        <button id="startBtn" class="fade-in delay-3">
+          Zacznij naszą historię ↓
+        </button>
       </div>
+    </section>
 
-      <div class="card reveal">
-        <h3>🌍 Nasz pierwszy wyjazd</h3>
-        <p>Każdy kilometr był bliżej Ciebie. To były niezapomniane chwile.</p>
-        <span class="date">Wspomnienie...</span>
+    <!-- HISTORIA -->
+    <section class="section">
+      <h2 class="section-title">Nasza historia</h2>
+      <div class="timeline">
+        <div class="card reveal">
+          <h3>❤️ Pierwsze spotkanie</h3>
+          <p>Pamiętasz ten dzień? Od tego momentu wszystko się zmieniło.</p>
+          <span class="date">14.02.2022</span>
+        </div>
+        <div class="card reveal">
+          <h3>🌍 Nasz pierwszy wyjazd</h3>
+          <p>Wspólne podróże to najpiękniejsze wspomnienia.</p>
+        </div>
+        <div class="card reveal">
+          <h3>✨ Dziś</h3>
+          <p>Dziękuję Ci za każdą wspólną chwilę.</p>
+        </div>
       </div>
+    </section>
 
-      <div class="card reveal">
-        <h3>✨ Dziś</h3>
-        <p>Każdy dzień z Tobą to najlepszy prezent. Dziękuję, że jesteś.</p>
+    <!-- GALERIA -->
+    <section class="section alt">
+      <h2 class="section-title">Wspomnienia</h2>
+      <div class="gallery">
+        <!-- Pamiętaj o wgraniu zdjęć: foto1.jpg, foto2.jpg itd. -->
+        <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="Foto 1"></div>
+        <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="Foto 2"></div>
+        <div class="photo-wrapper reveal"><img src="foto3.jpg" alt="Foto 3"></div>
+        <div class="photo-wrapper reveal"><img src="foto4.jpg" alt="Foto 4"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- GALERIA ZDJĘĆ -->
-  <section class="section alt">
-    <h2 class="section-title">Nasze Wspomnienia</h2>
-
-    <div class="gallery">
-      <!-- Pamiętaj o plikach foto1.jpg itd. w folderze! -->
-      <div class="photo-wrapper reveal">
-        <img src="foto1.jpg" alt="Nasze zdjęcie 1">
+    <!-- LICZNIK -->
+    <section class="section">
+      <h2 class="section-title">Jesteśmy razem</h2>
+      <div class="counter reveal">
+        <span id="days">0</span> dni ❤️
       </div>
-      <div class="photo-wrapper reveal">
-        <img src="foto2.jpg" alt="Nasze zdjęcie 2">
+    </section>
+
+    <!-- LIST -->
+    <section class="section letter-section">
+      <h2 class="section-title">List do Ciebie</h2>
+      <div class="paper reveal">
+        <p class="handwriting">
+          Kochanie,<br><br>
+          Nie potrzebuję specjalnej okazji, by powiedzieć Ci, jak bardzo Cię kocham.
+          Jesteś moim szczęściem, moim wsparciem i moim najlepszym przyjacielem.
+          <br><br>
+          Z Tobą świat jest piękniejszy.
+          <br><br>
+          Twój [Twoje Imię]
+        </p>
       </div>
-      <div class="photo-wrapper reveal">
-        <img src="foto3.jpg" alt="Nasze zdjęcie 3">
+    </section>
+
+    <!-- PYTANIE -->
+    <section class="section proposal">
+      <h2 class="section-title">Mam pytanie...</h2>
+      <p style="font-size: 1.4rem;">Czy zostaniesz moją Walentynką? 🌹</p>
+      <div class="buttons-container">
+        <button id="yesBtn">TAK! ❤️</button>
+        <button id="noBtn">Nie...</button>
       </div>
-      <div class="photo-wrapper reveal">
-        <img src="foto4.jpg" alt="Nasze zdjęcie 4">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- LICZNIK DNI -->
-  <section class="section">
-    <h2 class="section-title">Jesteśmy razem</h2>
-    <div class="counter reveal">
-      <span id="days">0</span> dni ❤️
-    </div>
-    <p class="reveal" style="margin-top: 10px; color: #666;">...i każda sekunda jest bezcenna.</p>
-  </section>
-
-  <!-- LIST (Stylizowany) -->
-  <section class="section letter-section">
-    <h2 class="section-title">List do Ciebie</h2>
-    <div class="paper reveal">
-      <p class="handwriting">
-        Kochanie,<br><br>
-        Stworzyłem tę stronę, bo słowa czasem nie wystarczą, by opisać, 
-        ile dla mnie znaczysz. Chciałem dać Ci coś, co zostanie na zawsze.
-        <br><br>
-        Dziękuję Ci za Twój uśmiech, za wsparcie i za to, jak parzysz kawę rano.
-        Przy Tobie jestem najlepszą wersją siebie.
-        <br><br>
-        Kocham Cię najbardziej na świecie.
-        <br>
-        <span style="float: right; margin-top: 20px;">— Twój [Twoje Imię]</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- WALENTYNKOWE PYTANIE -->
-  <section class="section proposal">
-    <h2 class="section-title">Mam ważne pytanie...</h2>
-    <p style="font-size: 1.4rem; margin-bottom: 30px;">
-      Czy zostaniesz moją Walentynką? 🌹
-    </p>
-    <div class="buttons-container">
-      <button id="yesBtn">TAK! ❤️</button>
-      <button id="noBtn">Nie...</button>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    Strona stworzona z miłością ❤️ 2024
-  </footer>
+    <footer>
+      Stworzone z miłością ❤️ 2024
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
