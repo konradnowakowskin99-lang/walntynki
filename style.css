@@ -20,51 +20,38 @@ body {
 
 body.locked { overflow: hidden; }
 
-/* --- INTRO (CZERWONE SERCE) --- */
+/* --- INTRO --- */
 #intro-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: #000;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 60px;
-  transition: opacity 1.5s ease-in-out;
-  touch-action: none;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #000; z-index: 9999;
+  display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+  padding-top: 60px; transition: opacity 1.5s ease-in-out; touch-action: none;
 }
+canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.intro-text { position: relative; z-index: 10; text-align: center; pointer-events: none; }
 
-canvas {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-}
-
-.intro-text {
-  position: relative; z-index: 10; text-align: center; pointer-events: none;
-}
-
-/* RED NEON STYLE */
 .red-neon {
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(3rem, 10vw, 5rem);
-  color: var(--neon-red);
-  text-shadow: 
-    0 0 10px var(--neon-red),
-    0 0 20px var(--neon-glow),
-    0 0 40px var(--neon-red);
-  margin: 0;
-  animation: pulseRed 2s infinite alternate;
+  font-size: clamp(3rem, 10vw, 5rem); color: var(--neon-red);
+  text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-glow), 0 0 40px var(--neon-red);
+  margin: 0; animation: pulseRed 2s infinite alternate;
 }
-
 @keyframes pulseRed {
   from { opacity: 0.8; text-shadow: 0 0 10px var(--neon-red); }
   to { opacity: 1; text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-glow); }
 }
 
-#main-content {
-  opacity: 0; display: none; transition: opacity 2s ease-in;
-}
+#main-content { opacity: 0; display: none; transition: opacity 2s ease-in; }
 #main-content.visible { display: block; opacity: 1; }
+
+/* --- MUZYKA --- */
+.music-btn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 100;
+  background: rgba(255,255,255,0.9); border: 2px solid var(--dark);
+  border-radius: 50px; padding: 10px 20px; cursor: pointer; transition: 0.3s;
+  font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+}
+.music-btn:hover { background: var(--dark); color: white; transform: scale(1.05); }
 
 /* --- HERO --- */
 .hero {
@@ -80,25 +67,43 @@ canvas {
   text-align: center; white-space: pre-wrap;
 }
 
-.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.5rem); margin-bottom: 10px; }
+/* Nowe formatowanie nagłówka */
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 8vw, 3rem);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.highlight-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3.5rem, 12vw, 5rem);
+  color: var(--dark);
+  display: block; /* Nowa linia */
+  margin-top: 10px;
+  text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+}
+
+/* Styl cytatu w Hero */
+.quote-style {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  color: #5a1e26;
+  margin-top: 20px;
+  opacity: 0; /* Dla animacji fade-in */
+}
+
 .hero button {
-  margin-top: 30px; padding: 15px 40px; border-radius: 50px;
+  margin-top: 40px; padding: 15px 40px; border-radius: 50px;
   background: var(--dark); color: white; border: none; cursor: pointer; transition: 0.4s;
 }
 
 /* --- SEKCJE --- */
 .section { padding: 60px 20px; text-align: center; }
 .section.alt { background: #fff0f3; }
-.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); margin-bottom: 10px; }
-
-/* Cytat pod wspomnieniami */
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); margin-bottom: 20px; }
 .section-subtitle {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5rem;
-  color: #8b2f3c;
-  opacity: 0.8;
-  margin-top: 0;
-  margin-bottom: 40px;
+  font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #8b2f3c;
+  opacity: 0.8; margin-top: 0; margin-bottom: 40px;
 }
 
 .timeline { max-width: 700px; margin: auto; }
@@ -107,12 +112,59 @@ canvas {
   box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
 
+/* --- FLIP CARDS (GALERIA) --- */
 .gallery {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px; max-width: 900px; margin: auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px; max-width: 900px; margin: auto;
 }
-.photo-wrapper { height: 250px; border-radius: 12px; overflow: hidden; }
-.photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+.flip-card {
+  background-color: transparent;
+  height: 250px;
+  perspective: 1000px; /* Efekt 3D */
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Obrót po najechaniu (PC) lub kliknięciu (Mobile - klasa .flipped w JS) */
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%; height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.flip-card-front img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.flip-card-back {
+  background-color: var(--dark);
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+}
 
 .counter { font-size: clamp(2.5rem, 12vw, 4rem); font-weight: 600; color: var(--dark); }
 .letter-section { background: var(--dark); color: white; }
@@ -131,7 +183,7 @@ canvas {
 #yesBtn, #noBtn { padding: 12px 30px; border: none; border-radius: 30px; font-size: 1.1rem; cursor: pointer; color: white; }
 #yesBtn { background: #28a745; } #noBtn { background: #dc3545; }
 
-footer { padding: 30px; color: #888; text-align: center; font-size: 0.8rem; }
+footer { padding: 10px; } /* Pusty footer */
 
 @keyframes bgFlow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(15deg); } }
 @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-100%); } }
