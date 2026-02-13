@@ -12,7 +12,7 @@
 </head>
 <body class="locked">
 
-  <!-- EKRAN POWITALNY -->
+  <!-- INTRO -->
   <div id="intro-overlay">
     <canvas id="heart-canvas"></canvas>
     <div class="intro-text">
@@ -22,26 +22,23 @@
 
   <!-- MUZYKA -->
   <audio id="bgMusic" loop>
-    <!-- Upewnij się, że plik jest w folderze! -->
-    <source src="Stephen Sanchez - Until I Found You (Piano Version).mp3" type="audio/mpeg">
+    <source src="muzyka.mp3" type="audio/mpeg">
   </audio>
   <button id="musicBtn" class="music-btn">🎵 Włącz muzykę</button>
 
-  <!-- GŁÓWNA STRONA -->
+  <!-- GŁÓWNA TREŚĆ -->
   <div id="main-content">
     
-    <section class="hero">
-      <div class="parallax layer bg"></div>
-      <div class="parallax layer hearts-layer"></div>
+    <!-- TŁO (Floating Hearts CSS) -->
+    <div class="floating-bg"></div>
 
+    <section class="hero">
       <div class="hero-content">
-        <!-- Zmiana formatowania nagłówka -->
         <h1 class="fade-in">
           Dla mojej princess<br>
           <span class="highlight-name">Julii</span>
         </h1>
         
-        <!-- Usunięto "Kocham Cię", zmieniono cytat i czcionkę -->
         <p class="fade-in delay-2 quote-style">
           „Każda historia jest piękna,<br>
           ale nasza jest moją ulubioną ❤️”
@@ -53,90 +50,86 @@
       </div>
     </section>
 
-    <!-- HISTORIA (Dodano ID 'history-start' do poprawnego scrollowania) -->
+    <!-- HISTORIA (TIMELINE + GLASSMORPHISM) -->
     <section class="section" id="history-start">
       <h2 class="section-title">Nasza historia</h2>
-      <div class="timeline">
-        <div class="card reveal">
-          <h3>❤️ Początek</h3>
-          <p>Dzień, który zmienił wszystko.</p>
-          <span class="date">14.02.2022</span>
+      
+      <div class="timeline-container">
+        <!-- Linia pionowa -->
+        <div class="timeline-line"></div>
+
+        <!-- KAFELEK 1: POCZĄTEK -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="card glass">
+            <div class="card-img">
+              <img src="t1.jpg" alt="Początek"> <!-- Dodaj zdjęcie t1.jpg -->
+            </div>
+            <h3>❤️ Początek</h3>
+            <p>Pamiętasz ten dzień? 01.01.2026. <br>Wtedy wszystko się zaczęło.</p>
+          </div>
         </div>
-        <div class="card reveal">
-          <h3>🌍 Nasz czas</h3>
-          <p>Każda wspólna chwila to skarb.</p>
+
+        <!-- KAFELEK 2: STATYSTYKI (GAMIFIKACJA) -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="card glass">
+            <div class="card-img">
+              <img src="t2.jpg" alt="Statystyki"> <!-- Dodaj zdjęcie t2.jpg -->
+            </div>
+            <h3>🌍 Nasze Statystyki</h3>
+            <ul class="stats-list">
+              <li>✈️ Wspólne podróże: <strong>1</strong></li>
+              <li>🐕 Spacery z Dolarkiem: <strong>5</strong></li>
+              <li>🍕 Zjedzone pizze: <strong>42</strong></li>
+              <li>☕ Wypite kawy: <strong>150</strong></li>
+              <li>🤬 Kłótnie o pierdoły: <strong>3</strong> (wybaczone!)</li>
+            </ul>
+          </div>
         </div>
-        <div class="card reveal">
-          <h3>✨ Teraz</h3>
-          <p>Kocham Cię bardziej z każdym dniem.</p>
+
+        <!-- KAFELEK 3: TERAZ + NIESPODZIANKA -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="card glass">
+            <div class="card-img">
+              <img src="t3.jpg" alt="Teraz"> <!-- Dodaj zdjęcie t3.jpg -->
+            </div>
+            <h3>✨ Teraz</h3>
+            <p>Kocham Cię bardziej z każdym dniem.</p>
+            <button id="surpriseBtn" class="action-btn">Kliknij mnie 🎁</button>
+            <div id="hiddenMessage" class="hidden-msg">
+              Kolacja dziś o 20:00? 🍝🍷
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- GALERIA - OBRACANE KARTY -->
+    <!-- GALERIA (FLIP CARDS) -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
-      <p class="section-subtitle reveal">Kliknij w zdjęcie...</p>
+      <!-- Przywrócony cytat -->
+      <p class="section-subtitle reveal">„Kolekcjonujemy chwile, nie rzeczy...”</p>
       
       <div class="gallery">
-        
-        <!-- ZDJĘCIE 1 -->
-        <div class="flip-card reveal">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="foto1.jpg" alt="Foto 1">
-            </div>
-            <div class="flip-card-back">
-              <p>Za to, że zawsze przy mnie jesteś ❤️</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- ZDJĘCIE 2 -->
-        <div class="flip-card reveal">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="foto2.jpg" alt="Foto 2">
-            </div>
-            <div class="flip-card-back">
-              <p>Za Twój najpiękniejszy uśmiech 😍</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- ZDJĘCIE 3 -->
-        <div class="flip-card reveal">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="foto3.jpg" alt="Foto 3">
-            </div>
-            <div class="flip-card-back">
-              <p>Za nasze wspólne przygody 🌍</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- ZDJĘCIE 4 -->
-        <div class="flip-card reveal">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="foto4.jpg" alt="Foto 4">
-            </div>
-            <div class="flip-card-back">
-              <p>Po prostu... Kocham Cię! 🌹</p>
-            </div>
-          </div>
-        </div>
-
+        <div class="flip-card reveal"><div class="flip-card-inner"><div class="flip-card-front"><img src="foto1.jpg"></div><div class="flip-card-back"><p>Za to, że jesteś ❤️</p></div></div></div>
+        <div class="flip-card reveal"><div class="flip-card-inner"><div class="flip-card-front"><img src="foto2.jpg"></div><div class="flip-card-back"><p>Za Twój uśmiech 😍</p></div></div></div>
+        <div class="flip-card reveal"><div class="flip-card-inner"><div class="flip-card-front"><img src="foto3.jpg"></div><div class="flip-card-back"><p>Za nasze przygody 🌍</p></div></div></div>
+        <div class="flip-card reveal"><div class="flip-card-inner"><div class="flip-card-front"><img src="foto4.jpg"></div><div class="flip-card-back"><p>Kocham Cię! 🌹</p></div></div></div>
       </div>
     </section>
 
-    <!-- LICZNIK -->
+    <!-- SZCZEGÓŁOWY LICZNIK LIVE -->
     <section class="section">
       <h2 class="section-title">Jesteśmy razem</h2>
-      <div class="counter reveal">
-        <span id="days">0</span> dni ❤️
+      <div class="live-timer reveal">
+        <div class="time-box"><span id="days">0</span><span class="label">Dni</span></div>
+        <div class="time-box"><span id="hours">0</span><span class="label">Godz</span></div>
+        <div class="time-box"><span id="minutes">0</span><span class="label">Min</span></div>
+        <div class="time-box"><span id="seconds">0</span><span class="label">Sek</span></div>
       </div>
+      <p style="margin-top: 20px; font-family: 'Dancing Script'; font-size: 1.5rem;">...i każda sekunda jest magiczna ✨</p>
     </section>
 
     <!-- LIST -->
@@ -145,7 +138,7 @@
       <div class="paper reveal">
         <p class="handwriting">
           Kochanie,<br><br>
-          Dziękuję Ci za wszystko. Jesteś moim szczęściem.
+          Dziękuję Ci za wszystko. Jesteś moim szczęściem, moją inspiracją i moim domem.
           <br><br>
           Twój [Twoje Imię]
         </p>
@@ -162,7 +155,6 @@
       </div>
     </section>
 
-    <!-- PUSTY FOOTER (Bez daty) -->
     <footer></footer>
   </div>
 
