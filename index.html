@@ -12,14 +12,20 @@
 </head>
 <body class="locked">
 
-  <!-- EKRAN POWITALNY: RED PARTICLE HEART -->
+  <!-- EKRAN POWITALNY -->
   <div id="intro-overlay">
     <canvas id="heart-canvas"></canvas>
     <div class="intro-text">
-      <!-- Usunąłem napis "Kliknij...", został tylko główny -->
       <h1 class="red-neon">I Love You</h1>
     </div>
   </div>
+
+  <!-- MUZYKA -->
+  <audio id="bgMusic" loop>
+    <!-- Upewnij się, że plik jest w folderze! -->
+    <source src="Stephen Sanchez - Until I Found You (Piano Version).mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicBtn" class="music-btn">🎵 Włącz muzykę</button>
 
   <!-- GŁÓWNA STRONA -->
   <div id="main-content">
@@ -29,20 +35,26 @@
       <div class="parallax layer hearts-layer"></div>
 
       <div class="hero-content">
-        <h1 class="fade-in">Dla mojej princess Julii</h1>
-        <h2 class="fade-in delay-1">Kocham Cię</h2>
-        <p class="fade-in delay-2">
-          „Każda historia miłości jest piękna,<br>
-          ale nasza jest moją ulubioną.”
+        <!-- Zmiana formatowania nagłówka -->
+        <h1 class="fade-in">
+          Dla mojej princess<br>
+          <span class="highlight-name">Julii</span>
+        </h1>
+        
+        <!-- Usunięto "Kocham Cię", zmieniono cytat i czcionkę -->
+        <p class="fade-in delay-2 quote-style">
+          „Każda historia jest piękna,<br>
+          ale nasza jest moją ulubioną ❤️”
         </p>
+        
         <button id="startBtn" class="fade-in delay-3">
           Zacznij naszą historię ↓
         </button>
       </div>
     </section>
 
-    <!-- HISTORIA (Treść uzupełnisz sam z moich propozycji niżej) -->
-    <section class="section">
+    <!-- HISTORIA (Dodano ID 'history-start' do poprawnego scrollowania) -->
+    <section class="section" id="history-start">
       <h2 class="section-title">Nasza historia</h2>
       <div class="timeline">
         <div class="card reveal">
@@ -61,16 +73,61 @@
       </div>
     </section>
 
-    <!-- GALERIA -->
+    <!-- GALERIA - OBRACANE KARTY -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
-      <p class="section-subtitle reveal">„Kolekcjonujemy chwile, nie rzeczy...”</p>
+      <p class="section-subtitle reveal">Kliknij w zdjęcie...</p>
       
       <div class="gallery">
-        <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="F1"></div>
-        <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="F2"></div>
-        <div class="photo-wrapper reveal"><img src="foto3.jpg" alt="F3"></div>
-        <div class="photo-wrapper reveal"><img src="foto4.jpg" alt="F4"></div>
+        
+        <!-- ZDJĘCIE 1 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="foto1.jpg" alt="Foto 1">
+            </div>
+            <div class="flip-card-back">
+              <p>Za to, że zawsze przy mnie jesteś ❤️</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZDJĘCIE 2 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="foto2.jpg" alt="Foto 2">
+            </div>
+            <div class="flip-card-back">
+              <p>Za Twój najpiękniejszy uśmiech 😍</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZDJĘCIE 3 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="foto3.jpg" alt="Foto 3">
+            </div>
+            <div class="flip-card-back">
+              <p>Za nasze wspólne przygody 🌍</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZDJĘCIE 4 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="foto4.jpg" alt="Foto 4">
+            </div>
+            <div class="flip-card-back">
+              <p>Po prostu... Kocham Cię! 🌹</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -105,7 +162,8 @@
       </div>
     </section>
 
-    <footer>❤️ 2024</footer>
+    <!-- PUSTY FOOTER (Bez daty) -->
+    <footer></footer>
   </div>
 
   <script src="script.js"></script>
