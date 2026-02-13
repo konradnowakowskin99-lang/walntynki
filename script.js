@@ -1,7 +1,7 @@
 /* --- KONFIGURACJA --- */
-const startDate = new Date(2022, 1, 14); // Pamiętaj o dacie! (Miesiąc 0-11)
+const startDate = new Date(2022, 1, 14); // Pamiętaj o dacie (miesiąc 0-11)
 
-/* --- SILNIK 3D PARTICLE HEART (RED LOVE EDITION) --- */
+/* --- SILNIK 3D PARTICLE HEART (RED) --- */
 const canvas = document.getElementById("heart-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -20,12 +20,10 @@ resize();
 
 class Particle {
   constructor() {
-    // START W CHAOSIE
     this.x = (Math.random() - 0.5) * width * 3;
     this.y = (Math.random() - 0.5) * height * 3;
     this.z = (Math.random() - 0.5) * 1000;
     
-    // CEL
     const baseScale = Math.min(width, height);
     const scale = isMobile ? (baseScale / 16) : (baseScale / 28);
     
@@ -42,7 +40,6 @@ class Particle {
     
     this.size = Math.random() * 1.5 + 0.2; 
     
-    // KOLORY MIŁOŚCI (Czerwienie, Róże, Biel)
     const reds = ["#ff0033", "#ff6699", "#ffffff", "#ff3366", "#cc0000"];
     this.color = reds[Math.floor(Math.random() * reds.length)];
   }
@@ -91,12 +88,11 @@ for (let i = 0; i < particleCount; i++) {
 
 function drawReflection() {
   const reflectSize = isMobile ? 250 : 450;
-  // CZERWONA POŚWIATA
   const gradient = ctx.createRadialGradient(
     width / 2, height - 50, 10,
     width / 2, height - 50, reflectSize
   );
-  gradient.addColorStop(0, "rgba(255, 0, 50, 0.2)"); // Czerwień
+  gradient.addColorStop(0, "rgba(255, 0, 50, 0.2)");
   gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
   ctx.save();
@@ -116,7 +112,7 @@ function animate() {
 
   drawReflection();
 
-  ctx.globalCompositeOperation = 'lighter'; // Efekt świecenia przy nakładaniu
+  ctx.globalCompositeOperation = 'lighter'; 
 
   angle += 0.005; 
   particles.forEach(p => {
@@ -128,17 +124,30 @@ function animate() {
 }
 animate();
 
-/* --- PRZEJŚCIE --- */
+/* --- OBSŁUGA STRONY I MUZYKI --- */
 const introOverlay = document.getElementById('intro-overlay');
 const mainContent = document.getElementById('main-content');
+const audio = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let isMusicPlaying = false;
 
+// Kliknięcie w Intro
 introOverlay.addEventListener('click', () => {
+  // Wybuch serca
   particles.forEach(p => {
-    p.accel = 0.3; // Wybuch
+    p.accel = 0.3;
     p.tx = (Math.random() - 0.5) * 5000;
     p.ty = (Math.random() - 0.5) * 5000;
   });
 
+  // Start muzyki
+  audio.volume = 0.5;
+  audio.play().then(() => {
+    isMusicPlaying = true;
+    musicBtn.innerText = "⏸️ Pauza";
+  }).catch(e => console.log("Audio zablokowane", e));
+
+  // Przejście
   introOverlay.style.opacity = 0;
   setTimeout(() => {
     introOverlay.style.display = 'none';
@@ -149,9 +158,11 @@ introOverlay.addEventListener('click', () => {
 });
 
 function runSiteLogic() {
+  // Licznik
   const diff = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24));
   document.getElementById("days").innerText = diff;
 
+  // Reveal
   const reveals = document.querySelectorAll(".reveal");
   const checkReveal = () => {
     reveals.forEach(el => {
@@ -162,6 +173,7 @@ function runSiteLogic() {
   window.addEventListener("scroll", checkReveal);
   checkReveal();
 
+  // Uciekający przycisk
   const noBtn = document.getElementById('noBtn');
   const yesBtn = document.getElementById('yesBtn');
   if(noBtn && yesBtn) {
@@ -177,6 +189,13 @@ function runSiteLogic() {
       setTimeout(()=>alert("Wiedziałem! ❤️"),300);
     });
   }
+
+  // Obsługa klikania w karty na telefonach (Flip)
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  });
 }
 
 function createConfetti() {
@@ -189,6 +208,18 @@ function createConfetti() {
   setTimeout(()=>h.remove(), 3000);
 }
 
+// Obsługa przycisku muzyki
+musicBtn.addEventListener('click', () => {
+  if(isMusicPlaying) { audio.pause(); musicBtn.innerText="🎵 Włącz muzykę"; }
+  else { audio.play(); musicBtn.innerText="⏸️ Pauza"; }
+  isMusicPlaying = !isMusicPlaying;
+});
+
+// Scroll - Poprawiony cel
 document.getElementById("startBtn").addEventListener("click", () => {
-  document.querySelector(".timeline").scrollIntoView({ behavior: "smooth" });
+  // Przewija do sekcji z ID history-start
+  const historySection = document.getElementById("history-start");
+  if(historySection) {
+    historySection.scrollIntoView({ behavior: "smooth" });
+  }
 });
