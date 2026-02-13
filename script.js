@@ -1,14 +1,13 @@
 /* --- KONFIGURACJA --- */
-const startDate = new Date(2022, 1, 14); 
+const startDate = new Date(2022, 1, 14); // Pamiętaj o dacie! (Miesiąc 0-11)
 
-/* --- SILNIK 3D PARTICLE HEART (CHAOS TO ORDER) --- */
+/* --- SILNIK 3D PARTICLE HEART (RED LOVE EDITION) --- */
 const canvas = document.getElementById("heart-canvas");
 const ctx = canvas.getContext("2d");
 
 let width, height;
 let particles = [];
 const isMobile = window.innerWidth < 768;
-// DUŻO drobnych cząsteczek dla efektu gwiezdnego pyłu
 const particleCount = isMobile ? 1200 : 2500; 
 let angle = 0;
 
@@ -21,12 +20,12 @@ resize();
 
 class Particle {
   constructor() {
-    // START W CHAOSIE (Losowe punkty daleko poza ekranem lub rozrzucone)
+    // START W CHAOSIE
     this.x = (Math.random() - 0.5) * width * 3;
     this.y = (Math.random() - 0.5) * height * 3;
     this.z = (Math.random() - 0.5) * 1000;
     
-    // CEL (SERCE)
+    // CEL
     const baseScale = Math.min(width, height);
     const scale = isMobile ? (baseScale / 16) : (baseScale / 28);
     
@@ -38,32 +37,27 @@ class Particle {
     this.ty = hy * scale;
     this.tz = (Math.random() - 0.5) * 100 * (scale / 10);
 
-    // Timing (każda cząsteczka startuje w innym momencie)
-    this.delay = Math.random() * 100; // Opóźnienie startu lotu
-    this.accel = Math.random() * 0.02 + 0.005; // Prędkość dolotu
+    this.delay = Math.random() * 100;
+    this.accel = Math.random() * 0.02 + 0.005; 
     
-    this.size = Math.random() * 1.5 + 0.2; // Bardzo drobne
+    this.size = Math.random() * 1.5 + 0.2; 
     
-    const blues = ["#ffffff", "#00ccff", "#0066ff", "#002244", "#00ffff"];
-    this.color = blues[Math.floor(Math.random() * blues.length)];
+    // KOLORY MIŁOŚCI (Czerwienie, Róże, Biel)
+    const reds = ["#ff0033", "#ff6699", "#ffffff", "#ff3366", "#cc0000"];
+    this.color = reds[Math.floor(Math.random() * reds.length)];
   }
 
   update() {
-    // "Harmider" zamieniający się w porządek
-    // Cząsteczka zaczyna lecieć do celu dopiero po upływie swojego delay
     if (this.delay > 0) {
         this.delay -= 1;
-        // W fazie chaosu lekko się poruszają
         this.x += (Math.random() - 0.5) * 2;
         this.y += (Math.random() - 0.5) * 2;
     } else {
-        // Lot do celu z efektem poświaty (płynne hamowanie)
         this.x += (this.tx - this.x) * this.accel;
         this.y += (this.ty - this.y) * this.accel;
         this.z += (this.tz - this.z) * this.accel;
     }
 
-    // Delikatne pulsowanie, gdy już są na miejscu
     if (Math.abs(this.tx - this.x) < 5) {
       this.x += Math.sin(Date.now() * 0.001 + this.tx) * 0.2;
       this.y += Math.cos(Date.now() * 0.001 + this.ty) * 0.2;
@@ -97,11 +91,12 @@ for (let i = 0; i < particleCount; i++) {
 
 function drawReflection() {
   const reflectSize = isMobile ? 250 : 450;
+  // CZERWONA POŚWIATA
   const gradient = ctx.createRadialGradient(
     width / 2, height - 50, 10,
     width / 2, height - 50, reflectSize
   );
-  gradient.addColorStop(0, "rgba(0, 204, 255, 0.2)");
+  gradient.addColorStop(0, "rgba(255, 0, 50, 0.2)"); // Czerwień
   gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
   ctx.save();
@@ -115,16 +110,13 @@ function drawReflection() {
 }
 
 function animate() {
-  // KLUCZ DO POŚWIATY (SMUG): Nie czyścimy całego ekranu, 
-  // tylko nakładamy bardzo przezroczystą warstwę czerni
   ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = "rgba(0, 0, 0, 0.12)"; // Im mniejsza liczba, tym dłuższe smugi
+  ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
   ctx.fillRect(0, 0, width, height);
 
   drawReflection();
 
-  // Tryb 'lighter' sprawia, że drobinki świecą, gdy się nakładają
-  ctx.globalCompositeOperation = 'lighter';
+  ctx.globalCompositeOperation = 'lighter'; // Efekt świecenia przy nakładaniu
 
   angle += 0.005; 
   particles.forEach(p => {
@@ -139,22 +131,13 @@ animate();
 /* --- PRZEJŚCIE --- */
 const introOverlay = document.getElementById('intro-overlay');
 const mainContent = document.getElementById('main-content');
-const audio = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-let isPlaying = false;
 
 introOverlay.addEventListener('click', () => {
   particles.forEach(p => {
-    p.accel = 0.3; // Wybuch przy kliknięciu
+    p.accel = 0.3; // Wybuch
     p.tx = (Math.random() - 0.5) * 5000;
     p.ty = (Math.random() - 0.5) * 5000;
   });
-
-  audio.volume = 0.5;
-  audio.play().then(() => {
-    isPlaying = true;
-    musicBtn.innerText = "⏸️ Pauza";
-  }).catch(() => {});
 
   introOverlay.style.opacity = 0;
   setTimeout(() => {
@@ -206,28 +189,6 @@ function createConfetti() {
   setTimeout(()=>h.remove(), 3000);
 }
 
-musicBtn.addEventListener('click', () => {
-  if(isPlaying) { audio.pause(); musicBtn.innerText="🎵 Muzyka"; }
-  else { audio.play(); musicBtn.innerText="⏸️ Pauza"; }
-  isPlaying = !isPlaying;
-});
-
 document.getElementById("startBtn").addEventListener("click", () => {
   document.querySelector(".timeline").scrollIntoView({ behavior: "smooth" });
-});
-
-document.addEventListener('click', (e) => {
-  if(document.getElementById('intro-overlay').style.display === 'none') {
-    if(e.target.tagName !== 'BUTTON') {
-      const h = document.createElement('div');
-      h.innerText = '💙';
-      h.style.position = 'absolute';
-      h.style.left = e.pageX + 'px'; h.style.top = e.pageY + 'px';
-      h.style.pointerEvents = 'none';
-      h.style.fontSize = '1.5rem';
-      h.style.animation = 'floatUp 1s forwards';
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 1000);
-    }
-  }
 });
