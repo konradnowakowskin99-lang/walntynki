@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Dla Ciebie ❤️</title>
+  <title>Dla Julii ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Fonty -->
@@ -12,20 +12,14 @@
 </head>
 <body class="locked">
 
-  <!-- EKRAN POWITALNY: CHAOS TO HEART -->
+  <!-- EKRAN POWITALNY: RED PARTICLE HEART -->
   <div id="intro-overlay">
     <canvas id="heart-canvas"></canvas>
     <div class="intro-text">
-      <h1 class="blue-neon">I Love You</h1>
-      <p class="subtitle">Kliknij w serce...</p>
+      <!-- Usunąłem napis "Kliknij...", został tylko główny -->
+      <h1 class="red-neon">I Love You</h1>
     </div>
   </div>
-
-  <!-- MUZYKA -->
-  <audio id="bgMusic" loop>
-    <source src="muzyka.mp3" type="audio/mpeg">
-  </audio>
-  <button id="musicBtn" class="music-btn">🎵 Muzyka</button>
 
   <!-- GŁÓWNA STRONA -->
   <div id="main-content">
@@ -33,9 +27,10 @@
     <section class="hero">
       <div class="parallax layer bg"></div>
       <div class="parallax layer hearts-layer"></div>
+
       <div class="hero-content">
-        <h1 class="fade-in">Dla mojej ukochanej</h1>
-        <h2 class="fade-in delay-1">[IMIĘ]</h2>
+        <h1 class="fade-in">Dla mojej princess Julii</h1>
+        <h2 class="fade-in delay-1">Kocham Cię</h2>
         <p class="fade-in delay-2">
           „Każda historia miłości jest piękna,<br>
           ale nasza jest moją ulubioną.”
@@ -46,6 +41,7 @@
       </div>
     </section>
 
+    <!-- HISTORIA (Treść uzupełnisz sam z moich propozycji niżej) -->
     <section class="section">
       <h2 class="section-title">Nasza historia</h2>
       <div class="timeline">
@@ -65,8 +61,11 @@
       </div>
     </section>
 
+    <!-- GALERIA -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
+      <p class="section-subtitle reveal">„Kolekcjonujemy chwile, nie rzeczy...”</p>
+      
       <div class="gallery">
         <div class="photo-wrapper reveal"><img src="foto1.jpg" alt="F1"></div>
         <div class="photo-wrapper reveal"><img src="foto2.jpg" alt="F2"></div>
@@ -75,6 +74,7 @@
       </div>
     </section>
 
+    <!-- LICZNIK -->
     <section class="section">
       <h2 class="section-title">Jesteśmy razem</h2>
       <div class="counter reveal">
@@ -82,6 +82,7 @@
       </div>
     </section>
 
+    <!-- LIST -->
     <section class="section letter-section">
       <h2 class="section-title">List do Ciebie</h2>
       <div class="paper reveal">
@@ -94,6 +95,7 @@
       </div>
     </section>
 
+    <!-- PYTANIE -->
     <section class="section proposal">
       <h2 class="section-title">Pytanie...</h2>
       <p style="font-size: 1.4rem;">Zostaniesz moją Walentynką? 🌹</p>
