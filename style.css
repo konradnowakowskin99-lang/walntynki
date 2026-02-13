@@ -10,183 +10,169 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #fff7f9;
-  color: var(--text-col);
-  overflow-x: hidden;
-  width: 100%;
+  margin: 0; font-family: 'Poppins', sans-serif;
+  background: #fff0f3; color: var(--text-col);
+  overflow-x: hidden; width: 100%;
 }
-
 body.locked { overflow: hidden; }
 
-/* --- INTRO --- */
+/* TŁO ANIMOWANE (CSS PARTICLES) */
+.floating-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: -1;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><text y="1em" font-size="8">❤️</text></svg>');
+  opacity: 0.05; background-size: 50px 50px;
+  animation: slideBg 60s linear infinite;
+}
+@keyframes slideBg { from { background-position: 0 0; } to { background-position: 0 1000px; } }
+
+/* INTRO */
 #intro-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: #000; z-index: 9999;
-  display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-  padding-top: 60px; transition: opacity 1.5s ease-in-out; touch-action: none;
+  display: flex; flex-direction: column; align-items: center; padding-top: 60px;
+  transition: opacity 1.5s ease-in-out; touch-action: none;
 }
 canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.intro-text { position: relative; z-index: 10; text-align: center; pointer-events: none; }
-
+.intro-text { position: relative; z-index: 10; pointer-events: none; }
 .red-neon {
-  font-family: 'Dancing Script', cursive;
-  font-size: clamp(3rem, 10vw, 5rem); color: var(--neon-red);
-  text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-glow), 0 0 40px var(--neon-red);
+  font-family: 'Dancing Script', cursive; font-size: clamp(3rem, 10vw, 5rem); color: var(--neon-red);
+  text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-glow);
   margin: 0; animation: pulseRed 2s infinite alternate;
 }
-@keyframes pulseRed {
-  from { opacity: 0.8; text-shadow: 0 0 10px var(--neon-red); }
-  to { opacity: 1; text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-glow); }
-}
+@keyframes pulseRed { to { text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-glow); } }
 
 #main-content { opacity: 0; display: none; transition: opacity 2s ease-in; }
 #main-content.visible { display: block; opacity: 1; }
 
-/* --- MUZYKA --- */
+/* MUZYKA */
 .music-btn {
   position: fixed; bottom: 20px; right: 20px; z-index: 100;
   background: rgba(255,255,255,0.9); border: 2px solid var(--dark);
-  border-radius: 50px; padding: 10px 20px; cursor: pointer; transition: 0.3s;
-  font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+  border-radius: 50px; padding: 10px 20px; font-family: 'Poppins'; cursor: pointer;
 }
-.music-btn:hover { background: var(--dark); color: white; transform: scale(1.05); }
 
-/* --- HERO --- */
+/* HERO */
 .hero {
-  position: relative; height: 100vh;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  text-align: center; overflow: hidden; padding: 20px;
-}
-.layer { position: absolute; inset: 0; }
-.bg { background: var(--bg-gradient); z-index: -2; animation: bgFlow 20s infinite alternate; }
-.hearts-layer::before {
-  content: "❤️ 💕 💖"; position: absolute; width: 100%; height: 200%;
-  font-size: 2rem; opacity: 0.15; animation: floatUp 30s linear infinite;
-  text-align: center; white-space: pre-wrap;
-}
-
-/* Nowe formatowanie nagłówka */
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 8vw, 3rem);
-  margin-bottom: 20px;
-  line-height: 1.2;
+  position: relative; min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center; padding: 20px;
 }
 .highlight-name {
-  font-family: 'Dancing Script', cursive;
-  font-size: clamp(3.5rem, 12vw, 5rem);
-  color: var(--dark);
-  display: block; /* Nowa linia */
-  margin-top: 10px;
-  text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+  font-family: 'Dancing Script', cursive; font-size: clamp(3.5rem, 12vw, 5rem);
+  color: var(--dark); display: block; margin-top: 10px;
 }
-
-/* Styl cytatu w Hero */
 .quote-style {
-  font-family: 'Dancing Script', cursive;
-  font-size: clamp(1.5rem, 6vw, 2rem);
-  color: #5a1e26;
-  margin-top: 20px;
-  opacity: 0; /* Dla animacji fade-in */
+  font-family: 'Dancing Script', cursive; font-size: clamp(1.5rem, 6vw, 2rem);
+  color: #5a1e26; margin-top: 20px;
 }
-
 .hero button {
-  margin-top: 40px; padding: 15px 40px; border-radius: 50px;
-  background: var(--dark); color: white; border: none; cursor: pointer; transition: 0.4s;
+  margin-top: 40px; padding: 15px 40px; border-radius: 50px; background: var(--dark);
+  color: white; border: none; cursor: pointer; transition: 0.4s;
 }
 
-/* --- SEKCJE --- */
-.section { padding: 60px 20px; text-align: center; }
-.section.alt { background: #fff0f3; }
-.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); margin-bottom: 20px; }
+/* --- TIMELINE (OŚ CZASU) --- */
+.section { padding: 60px 20px; text-align: center; position: relative; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 40px; }
+
+.timeline-container {
+  max-width: 800px; margin: auto; position: relative;
+  padding-left: 30px; border-left: 3px solid rgba(139, 47, 60, 0.3); text-align: left;
+}
+.timeline-item { position: relative; margin-bottom: 50px; }
+.timeline-dot {
+  position: absolute; left: -39px; top: 20px;
+  width: 15px; height: 15px; background: var(--dark); border-radius: 50%;
+  border: 3px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* GLASSMORPHISM CARD */
+.glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px; padding: 25px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+.card-img {
+  width: 100%; height: 200px; overflow: hidden; border-radius: 15px; margin-bottom: 15px;
+}
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* STATYSTYKI */
+.stats-list { list-style: none; padding: 0; margin: 0; }
+.stats-list li { margin-bottom: 10px; font-size: 1.1rem; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 5px; }
+
+/* NIESPODZIANKA */
+.action-btn {
+  background: var(--dark); color: white; border: none; padding: 10px 20px;
+  border-radius: 20px; margin-top: 15px; cursor: pointer; font-size: 1rem;
+}
+.hidden-msg {
+  display: none; margin-top: 15px; font-weight: bold; color: #d63384; 
+  background: rgba(255,255,255,0.8); padding: 10px; border-radius: 10px;
+}
+
+/* --- GALERIA (FLIP) --- */
+.section.alt { background: rgba(255,255,255,0.4); }
 .section-subtitle {
-  font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #8b2f3c;
-  opacity: 0.8; margin-top: 0; margin-bottom: 40px;
+  font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #8b2f3c; margin-bottom: 40px;
 }
-
-.timeline { max-width: 700px; margin: auto; }
-.card {
-  background: white; border-radius: 15px; padding: 25px; margin-bottom: 25px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-}
-
-/* --- FLIP CARDS (GALERIA) --- */
 .gallery {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px; max-width: 900px; margin: auto;
 }
-
 .flip-card {
-  background-color: transparent;
-  height: 250px;
-  perspective: 1000px; /* Efekt 3D */
-  cursor: pointer;
+  background-color: transparent; height: 260px; perspective: 1000px; cursor: pointer;
 }
-
 .flip-card-inner {
-  position: relative;
-  width: 100%; height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  position: relative; width: 100%; height: 100%; text-align: center;
+  transition: transform 0.8s; transform-style: preserve-3d;
+  border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
-
-/* Obrót po najechaniu (PC) lub kliknięciu (Mobile - klasa .flipped w JS) */
-.flip-card:hover .flip-card-inner,
-.flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg);
-}
+/* Logika obrotu: Klasa .flipped dodawana przez JS */
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
 
 .flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%; height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-  border-radius: 15px;
-  overflow: hidden;
+  position: absolute; width: 100%; height: 100%;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  border-radius: 15px; overflow: hidden;
 }
-
-.flip-card-front img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-
+.flip-card-front img { width: 100%; height: 100%; object-fit: cover; }
 .flip-card-back {
-  background-color: var(--dark);
-  color: white;
-  transform: rotateY(180deg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.4rem;
+  background-color: var(--dark); color: white; transform: rotateY(180deg);
+  display: flex; justify-content: center; align-items: center; padding: 10px;
+  font-family: 'Dancing Script'; font-size: 1.4rem;
 }
 
-.counter { font-size: clamp(2.5rem, 12vw, 4rem); font-weight: 600; color: var(--dark); }
+/* --- LICZNIK LIVE --- */
+.live-timer {
+  display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+}
+.time-box {
+  background: white; width: 70px; padding: 10px; border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.time-box span { display: block; font-weight: bold; font-size: 1.5rem; color: var(--dark); }
+.time-box .label { font-size: 0.8rem; font-weight: normal; color: #888; text-transform: uppercase; }
+
+/* INNE */
 .letter-section { background: var(--dark); color: white; }
 .letter-section .section-title { color: white; }
 .paper {
-  max-width: 600px; margin: auto; background: #fff; color: #333; padding: clamp(20px, 5vw, 40px);
-  transform: rotate(-1deg);
+  max-width: 600px; margin: auto; background: #fff; color: #333; padding: 30px;
+  transform: rotate(-1deg); box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 .handwriting {
-  font-family: 'Dancing Script', cursive; font-size: clamp(1.2rem, 5vw, 1.6rem); line-height: 1.8;
+  font-family: 'Dancing Script', cursive; font-size: 1.5rem; line-height: 1.8;
   text-align: left; background-image: linear-gradient(#eee .1rem, transparent .1rem);
   background-size: 100% 1.8rem;
 }
-
 .buttons-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
-#yesBtn, #noBtn { padding: 12px 30px; border: none; border-radius: 30px; font-size: 1.1rem; cursor: pointer; color: white; }
-#yesBtn { background: #28a745; } #noBtn { background: #dc3545; }
+#yesBtn { background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 30px; font-size: 1.1rem; }
+#noBtn { background: #dc3545; color: white; padding: 12px 30px; border: none; border-radius: 30px; font-size: 1.1rem; }
+footer { padding: 20px; }
 
-footer { padding: 10px; } /* Pusty footer */
-
-@keyframes bgFlow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(15deg); } }
-@keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+/* ANIMACJE POMOCNICZE */
 .fade-in { opacity: 0; animation: fadeIn 1.5s forwards; }
 .delay-1 { animation-delay: 0.5s; } .delay-2 { animation-delay: 1.5s; } .delay-3 { animation-delay: 2.5s; }
 @keyframes fadeIn { to { opacity: 1; } }
