@@ -3,6 +3,8 @@
   --bg-gradient: radial-gradient(circle at top, #fff7f9, #f6c1cc, #e89aa8);
   --dark: #8b2f3c;
   --text-col: #5a1e26;
+  --neon-red: #ff0033;
+  --neon-glow: #ff3366;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -16,11 +18,9 @@ body {
   width: 100%;
 }
 
-body.locked {
-  overflow: hidden;
-}
+body.locked { overflow: hidden; }
 
-/* --- INTRO (CZARNE TŁO) --- */
+/* --- INTRO (CZERWONE SERCE) --- */
 #intro-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -30,57 +30,43 @@ body.locked {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 60px;
   transition: opacity 1.5s ease-in-out;
   touch-action: none;
 }
 
 canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
 
 .intro-text {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  pointer-events: none;
+  position: relative; z-index: 10; text-align: center; pointer-events: none;
 }
 
-.blue-neon {
+/* RED NEON STYLE */
+.red-neon {
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(2.4rem, 8vw, 4rem);
-  color: #00ccff;
-  text-shadow: 0 0 10px #00ccff, 0 0 20px #0066ff, 0 0 40px #0000ff;
+  font-size: clamp(3rem, 10vw, 5rem);
+  color: var(--neon-red);
+  text-shadow: 
+    0 0 10px var(--neon-red),
+    0 0 20px var(--neon-glow),
+    0 0 40px var(--neon-red);
   margin: 0;
-  animation: pulseBlue 3s infinite alternate;
+  animation: pulseRed 2s infinite alternate;
 }
 
-.subtitle {
-  color: #aaddff; opacity: 0.5; font-size: 0.8rem;
-  margin-top: 5px; letter-spacing: 2px; text-transform: uppercase;
-}
-
-@keyframes pulseBlue {
-  from { opacity: 0.6; }
-  to { opacity: 1; }
+@keyframes pulseRed {
+  from { opacity: 0.8; text-shadow: 0 0 10px var(--neon-red); }
+  to { opacity: 1; text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-glow); }
 }
 
 #main-content {
-  opacity: 0;
-  display: none;
-  transition: opacity 2s ease-in;
+  opacity: 0; display: none; transition: opacity 2s ease-in;
 }
 #main-content.visible { display: block; opacity: 1; }
 
-/* --- STYLE STRONY --- */
-.music-btn {
-  position: fixed; bottom: 20px; right: 20px; z-index: 100;
-  background: rgba(255,255,255,0.9); border: 2px solid var(--dark);
-  border-radius: 50px; padding: 10px 20px; cursor: pointer; transition: 0.3s;
-}
-
+/* --- HERO --- */
 .hero {
   position: relative; height: 100vh;
   display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -94,15 +80,26 @@ canvas {
   text-align: center; white-space: pre-wrap;
 }
 
-.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 10vw, 3.5rem); margin-bottom: 10px; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.5rem); margin-bottom: 10px; }
 .hero button {
   margin-top: 30px; padding: 15px 40px; border-radius: 50px;
   background: var(--dark); color: white; border: none; cursor: pointer; transition: 0.4s;
 }
 
+/* --- SEKCJE --- */
 .section { padding: 60px 20px; text-align: center; }
 .section.alt { background: #fff0f3; }
-.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); margin-bottom: 40px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); margin-bottom: 10px; }
+
+/* Cytat pod wspomnieniami */
+.section-subtitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: #8b2f3c;
+  opacity: 0.8;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
 
 .timeline { max-width: 700px; margin: auto; }
 .card {
