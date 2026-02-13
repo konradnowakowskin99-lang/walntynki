@@ -1,7 +1,8 @@
-/* --- KONFIGURACJA --- */
-const startDate = new Date(2022, 1, 14); // Pamiętaj o dacie (miesiąc 0-11)
+/* --- KONFIGURACJA DATY --- */
+// 1 Stycznia 2026, godzina 17:00:00
+const startDate = new Date("2026-01-01T17:00:00");
 
-/* --- SILNIK 3D PARTICLE HEART (RED) --- */
+/* --- SILNIK 3D PARTICLE HEART --- */
 const canvas = document.getElementById("heart-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -37,7 +38,6 @@ class Particle {
 
     this.delay = Math.random() * 100;
     this.accel = Math.random() * 0.02 + 0.005; 
-    
     this.size = Math.random() * 1.5 + 0.2; 
     
     const reds = ["#ff0033", "#ff6699", "#ffffff", "#ff3366", "#cc0000"];
@@ -69,7 +69,6 @@ class Particle {
     
     const fl = isMobile ? 300 : 450; 
     const scale = fl / (fl + rz + 500); 
-    
     const x2d = rx * scale + width / 2;
     const y2d = this.y * scale + height / 2 - (isMobile ? 20 : 50); 
 
@@ -94,7 +93,6 @@ function drawReflection() {
   );
   gradient.addColorStop(0, "rgba(255, 0, 50, 0.2)");
   gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
   ctx.save();
   ctx.translate(0, height - 20);
   ctx.scale(1, 0.15); 
@@ -109,45 +107,35 @@ function animate() {
   ctx.globalCompositeOperation = 'source-over';
   ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
   ctx.fillRect(0, 0, width, height);
-
   drawReflection();
-
   ctx.globalCompositeOperation = 'lighter'; 
-
   angle += 0.005; 
-  particles.forEach(p => {
-    p.update();
-    p.draw();
-  });
-  
+  particles.forEach(p => { p.update(); p.draw(); });
   requestAnimationFrame(animate);
 }
 animate();
 
-/* --- OBSŁUGA STRONY I MUZYKI --- */
+/* --- LOGIKA STRONY --- */
 const introOverlay = document.getElementById('intro-overlay');
 const mainContent = document.getElementById('main-content');
 const audio = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 let isMusicPlaying = false;
 
-// Kliknięcie w Intro
+// 1. INTRO CLICK
 introOverlay.addEventListener('click', () => {
-  // Wybuch serca
   particles.forEach(p => {
     p.accel = 0.3;
     p.tx = (Math.random() - 0.5) * 5000;
     p.ty = (Math.random() - 0.5) * 5000;
   });
 
-  // Start muzyki
   audio.volume = 0.5;
   audio.play().then(() => {
     isMusicPlaying = true;
     musicBtn.innerText = "⏸️ Pauza";
-  }).catch(e => console.log("Audio zablokowane", e));
+  }).catch(e => console.log(e));
 
-  // Przejście
   introOverlay.style.opacity = 0;
   setTimeout(() => {
     introOverlay.style.display = 'none';
@@ -158,11 +146,7 @@ introOverlay.addEventListener('click', () => {
 });
 
 function runSiteLogic() {
-  // Licznik
-  const diff = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24));
-  document.getElementById("days").innerText = diff;
-
-  // Reveal
+  // 2. SCROLL REVEAL
   const reveals = document.querySelectorAll(".reveal");
   const checkReveal = () => {
     reveals.forEach(el => {
@@ -173,7 +157,42 @@ function runSiteLogic() {
   window.addEventListener("scroll", checkReveal);
   checkReveal();
 
-  // Uciekający przycisk
+  // 3. OBSŁUGA KART (FLIP NA KLIKNIĘCIE)
+  // Teraz kliknięcie otwiera, drugie zamyka (działa super na mobile)
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // 4. LICZNIK LIVE (Dni, Godz, Min, Sek)
+  setInterval(() => {
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+  }, 1000);
+
+  // 5. NIESPODZIANKA
+  const surpBtn = document.getElementById('surpriseBtn');
+  const hiddenMsg = document.getElementById('hiddenMessage');
+  if(surpBtn) {
+    surpBtn.addEventListener('click', () => {
+      for(let i=0; i<30; i++) createConfetti();
+      hiddenMsg.style.display = 'block';
+      surpBtn.style.display = 'none';
+    });
+  }
+
+  // 6. UCIECZKA PRZYCISKU
   const noBtn = document.getElementById('noBtn');
   const yesBtn = document.getElementById('yesBtn');
   if(noBtn && yesBtn) {
@@ -189,15 +208,9 @@ function runSiteLogic() {
       setTimeout(()=>alert("Wiedziałem! ❤️"),300);
     });
   }
-
-  // Obsługa klikania w karty na telefonach (Flip)
-  document.querySelectorAll('.flip-card').forEach(card => {
-    card.addEventListener('click', () => {
-      card.classList.toggle('flipped');
-    });
-  });
 }
 
+// 7. FUNKCJA KONFETTI
 function createConfetti() {
   const h = document.createElement('div');
   h.innerText = Math.random()>0.5?'❤️':'🌹';
@@ -208,18 +221,14 @@ function createConfetti() {
   setTimeout(()=>h.remove(), 3000);
 }
 
-// Obsługa przycisku muzyki
+// 8. MUZYKA
 musicBtn.addEventListener('click', () => {
   if(isMusicPlaying) { audio.pause(); musicBtn.innerText="🎵 Włącz muzykę"; }
   else { audio.play(); musicBtn.innerText="⏸️ Pauza"; }
   isMusicPlaying = !isMusicPlaying;
 });
 
-// Scroll - Poprawiony cel
+// 9. SCROLL DO HISTORII
 document.getElementById("startBtn").addEventListener("click", () => {
-  // Przewija do sekcji z ID history-start
-  const historySection = document.getElementById("history-start");
-  if(historySection) {
-    historySection.scrollIntoView({ behavior: "smooth" });
-  }
+  document.getElementById("history-start").scrollIntoView({ behavior: "smooth" });
 });
