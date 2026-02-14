@@ -165,3 +165,18 @@ footer { padding: 20px; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s; }
 .reveal.active { opacity: 1; transform: translateY(0); }
+
+/* --- WIADOMOŚĆ KOŃCOWA --- */
+.success-message {
+  display: none; /* Ukryte na start */
+  margin-top: 30px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #d63384; /* Ciemny róż */
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #d63384;
+  box-shadow: 0 5px 20px rgba(214, 51, 132, 0.3);
+  animation: fadeIn 1s forwards;
+}
