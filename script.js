@@ -1,8 +1,7 @@
 /* --- KONFIGURACJA DATY --- */
-// 1 Stycznia 2026, godzina 17:00:00
 const startDate = new Date("2026-01-01T17:00:00");
 
-/* --- SILNIK 3D PARTICLE HEART --- */
+/* --- SILNIK 3D PARTICLE HEART (RED) --- */
 const canvas = document.getElementById("heart-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -122,7 +121,7 @@ const audio = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 let isMusicPlaying = false;
 
-// 1. INTRO CLICK
+// INTRO CLICK
 introOverlay.addEventListener('click', () => {
   particles.forEach(p => {
     p.accel = 0.3;
@@ -146,7 +145,6 @@ introOverlay.addEventListener('click', () => {
 });
 
 function runSiteLogic() {
-  // 2. SCROLL REVEAL
   const reveals = document.querySelectorAll(".reveal");
   const checkReveal = () => {
     reveals.forEach(el => {
@@ -157,31 +155,26 @@ function runSiteLogic() {
   window.addEventListener("scroll", checkReveal);
   checkReveal();
 
-  // 3. OBSŁUGA KART (FLIP NA KLIKNIĘCIE)
-  // Teraz kliknięcie otwiera, drugie zamyka (działa super na mobile)
   document.querySelectorAll('.flip-card').forEach(card => {
     card.addEventListener('click', () => {
       card.classList.toggle('flipped');
     });
   });
 
-  // 4. LICZNIK LIVE (Dni, Godz, Min, Sek)
   setInterval(() => {
     const now = new Date();
     const diff = now - startDate;
-
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
-
     document.getElementById("days").innerText = days;
     document.getElementById("hours").innerText = hours;
     document.getElementById("minutes").innerText = minutes;
     document.getElementById("seconds").innerText = seconds;
   }, 1000);
 
-  // 5. NIESPODZIANKA
+  // OBSŁUGA PREZENTU
   const surpBtn = document.getElementById('surpriseBtn');
   const hiddenMsg = document.getElementById('hiddenMessage');
   if(surpBtn) {
@@ -189,10 +182,13 @@ function runSiteLogic() {
       for(let i=0; i<30; i++) createConfetti();
       hiddenMsg.style.display = 'block';
       surpBtn.style.display = 'none';
+      // Usuń też tekst zachęcający "Kliknij jak się odważysz" jeśli jest rodzeństwem
+      if(surpBtn.nextElementSibling && surpBtn.nextElementSibling.tagName === 'P') {
+        surpBtn.nextElementSibling.style.display = 'none';
+      }
     });
   }
 
-  // 6. UCIECZKA PRZYCISKU
   const noBtn = document.getElementById('noBtn');
   const yesBtn = document.getElementById('yesBtn');
   if(noBtn && yesBtn) {
@@ -210,7 +206,6 @@ function runSiteLogic() {
   }
 }
 
-// 7. FUNKCJA KONFETTI
 function createConfetti() {
   const h = document.createElement('div');
   h.innerText = Math.random()>0.5?'❤️':'🌹';
@@ -221,14 +216,12 @@ function createConfetti() {
   setTimeout(()=>h.remove(), 3000);
 }
 
-// 8. MUZYKA
 musicBtn.addEventListener('click', () => {
   if(isMusicPlaying) { audio.pause(); musicBtn.innerText="🎵 Włącz muzykę"; }
   else { audio.play(); musicBtn.innerText="⏸️ Pauza"; }
   isMusicPlaying = !isMusicPlaying;
 });
 
-// 9. SCROLL DO HISTORII
 document.getElementById("startBtn").addEventListener("click", () => {
   document.getElementById("history-start").scrollIntoView({ behavior: "smooth" });
 });
