@@ -29,7 +29,7 @@
   <!-- GŁÓWNA TREŚĆ -->
   <div id="main-content">
     
-    <!-- TŁO (Floating Hearts CSS) -->
+    <!-- TŁO -->
     <div class="floating-bg"></div>
 
     <section class="hero">
@@ -50,51 +50,62 @@
       </div>
     </section>
 
-    <!-- HISTORIA (TIMELINE + GLASSMORPHISM) -->
+    <!-- HISTORIA (TIMELINE) -->
     <section class="section" id="history-start">
       <h2 class="section-title">Nasza historia</h2>
       
       <div class="timeline-container">
-        <!-- Linia pionowa -->
         <div class="timeline-line"></div>
 
-        <!-- KAFELEK 1: POCZĄTEK -->
+        <!-- KAFELEK 1: POCZĄTEK (WIDEO) -->
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
           <div class="card glass">
             <div class="card-img">
-              <img src="t1.jpg" alt="Początek"> <!-- Dodaj zdjęcie t1.jpg -->
+              <!-- TUTAJ JEST WIDEO -->
+              <video autoplay loop muted playsinline>
+                <source src="Początek.mp4" type="video/mp4">
+              </video>
             </div>
             <h3>❤️ Początek</h3>
-            <p>Pamiętasz ten dzień? 01.01.2026. <br>Wtedy wszystko się zaczęło.</p>
+            <p>
+              Pamiętasz ten dzień? 01.01.2026.<br>
+              Coś się wtedy skończyło, ale ważniejsze jest to, że coś innego się zaczęło ❤️
+            </p>
           </div>
         </div>
 
-        <!-- KAFELEK 2: STATYSTYKI (GAMIFIKACJA) -->
+        <!-- KAFELEK 2: STATYSTYKI (EMOJI + LISTA) -->
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
           <div class="card glass">
-            <div class="card-img">
-              <img src="t2.jpg" alt="Statystyki"> <!-- Dodaj zdjęcie t2.jpg -->
+            <!-- EMOJI ZAMIAST ZDJĘCIA -->
+            <div class="card-img emoji-bg-blue">
+              📊
             </div>
+            
             <h3>🌍 Nasze Statystyki</h3>
             <ul class="stats-list">
               <li>✈️ Wspólne podróże: <strong>1</strong></li>
-              <li>🐕 Spacery z Dolarkiem: <strong>5</strong></li>
-              <li>🍕 Zjedzone pizze: <strong>42</strong></li>
-              <li>☕ Wypite kawy: <strong>150</strong></li>
-              <li>🤬 Kłótnie o pierdoły: <strong>3</strong> (wybaczone!)</li>
+              <li>🐕 Spacery z Dolarkiem: <strong>4</strong></li>
+              <li>🍕 Zjedzone pizze: <strong>1</strong></li>
+              <li>☕ Wypite kawy: <strong>20</strong></li>
+              <li>🤬 Kłótnie: <strong>Całe 0</strong> (przynajmniej te, o których wiem 😇)</li>
+              <!-- Dodatkowy pomysł ode mnie -->
+              <li>💭 Myśli o Tobie: <strong>∞ (nieskończoność)</strong></li>
             </ul>
           </div>
         </div>
 
-        <!-- KAFELEK 3: TERAZ + NIESPODZIANKA -->
+        <!-- KAFELEK 3: TERAZ (EMOJI + PREZENT) -->
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
           <div class="card glass">
-            <div class="card-img">
-              <img src="t3.jpg" alt="Teraz"> <!-- Dodaj zdjęcie t3.jpg -->
+            <!-- EMOJI ZAMIAST ZDJĘCIA -->
+            <div class="card-img emoji-bg-pink">
+              🎁
             </div>
+            
             <h3>✨ Teraz</h3>
             <p>Kocham Cię bardziej z każdym dniem.</p>
             <button id="surpriseBtn" class="action-btn">Kliknij mnie 🎁</button>
@@ -106,11 +117,10 @@
       </div>
     </section>
 
-    <!-- GALERIA (FLIP CARDS) -->
+    <!-- GALERIA -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
-      <!-- Przywrócony cytat -->
-      <p class="section-subtitle reveal">„Kolekcjonujemy chwile, nie rzeczy...”</p>
+      <p class="section-subtitle reveal">Kliknij w zdjęcie...</p>
       
       <div class="gallery">
         <div class="flip-card reveal"><div class="flip-card-inner"><div class="flip-card-front"><img src="foto1.jpg"></div><div class="flip-card-back"><p>Za to, że jesteś ❤️</p></div></div></div>
@@ -120,7 +130,7 @@
       </div>
     </section>
 
-    <!-- SZCZEGÓŁOWY LICZNIK LIVE -->
+    <!-- LICZNIK LIVE -->
     <section class="section">
       <h2 class="section-title">Jesteśmy razem</h2>
       <div class="live-timer reveal">
