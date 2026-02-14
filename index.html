@@ -57,12 +57,12 @@
       <div class="timeline-container">
         <div class="timeline-line"></div>
 
-        <!-- KAFELEK 1: POCZĄTEK (WIDEO) -->
+        <!-- KAFELEK 1: POCZĄTEK (WIDEO PIONOWE) -->
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
           <div class="card glass">
-            <div class="card-img">
-              <!-- TUTAJ JEST WIDEO -->
+            <!-- Dodano klasę 'vertical-video-container' żeby film był wysoki -->
+            <div class="card-img vertical-video-container">
               <video autoplay loop muted playsinline>
                 <source src="Początek.mp4" type="video/mp4">
               </video>
@@ -75,11 +75,10 @@
           </div>
         </div>
 
-        <!-- KAFELEK 2: STATYSTYKI (EMOJI + LISTA) -->
+        <!-- KAFELEK 2: STATYSTYKI (NOWA LISTA) -->
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
           <div class="card glass">
-            <!-- EMOJI ZAMIAST ZDJĘCIA -->
             <div class="card-img emoji-bg-blue">
               📊
             </div>
@@ -92,37 +91,40 @@
               <li>🎥 Wysłane TikToki/Rolki: <strong>250+</strong></li>
               <li>👑 Sytuacje, gdzie miałaś rację: <strong>Zawsze (oczywiście!)</strong></li>
               <li>🤬 Kłótnie: <strong>Całe 0</strong> (przynajmniej te, o których wiem 😇)</li>
-              <!-- Dodatkowy pomysł ode mnie -->
               <li>💭 Myśli o Tobie: <strong>∞ (nieskończoność)</strong></li>
               <li>🥰 Razy, kiedy pomyślałem "ale mam szczęście": <strong>Każdego dnia</strong></li>
             </ul>
           </div>
         </div>
 
-        <!-- KAFELEK 3: TERAZ (EMOJI + PREZENT) -->
+        <!-- KAFELEK 3: TERAZ (WIELKI PREZENT) -->
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
-          <div class="card glass">
-            <!-- EMOJI ZAMIAST ZDJĘCIA -->
-            <div class="card-img emoji-bg-pink">
-              🎁
-            </div>
+          <div class="card glass" style="text-align: center;">
             
             <h3>✨ Teraz</h3>
-            <p>Kocham Cię bardziej z każdym dniem.</p>
-            <button id="surpriseBtn" class="action-btn">Kliknij mnie 🎁</button>
+            
+            <!-- Wielki przycisk prezentowy -->
+            <button id="surpriseBtn" class="giant-gift-btn">
+              🎁
+            </button>
+            
+            <p style="margin-top: 15px; font-weight: bold; color: #8b2f3c;">
+              Kliknij jak się odważysz...
+            </p>
+
             <div id="hiddenMessage" class="hidden-msg">
-              Kolacja dziś o 20:00? 🍝🍷
+              🎉 Gratulacje! Wygrałaś cały dzień ze mną! ❤️
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- GALERIA -->
+    <!-- GALERIA (Z POPRAWIONYM CYTATEM) -->
     <section class="section alt">
       <h2 class="section-title">Wspomnienia</h2>
-      <p class="section-subtitle reveal">Kliknij w zdjęcie...</p>
+      <p class="section-subtitle reveal">„Kolekcjonujemy chwile, nie rzeczy...”</p>
       
       <div class="gallery">
         <div class="flip-card reveal"><div class="flip-card-inner"><div class="flip-card-front"><img src="foto1.jpg"></div><div class="flip-card-back"><p>Za to, że jesteś ❤️</p></div></div></div>
@@ -173,4 +175,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
