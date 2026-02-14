@@ -200,9 +200,19 @@ function runSiteLogic() {
     noBtn.addEventListener('mouseover', moveBtn);
     noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveBtn(); });
     yesBtn.addEventListener('click', () => {
-      for(let i=0;i<50;i++) createConfetti();
-      setTimeout(()=>alert("Wiedziałem! ❤️"),300);
-    });
+          // 1. Konfetti
+          for(let i=0; i<50; i++) createConfetti();
+          
+          // 2. Ukryj przyciski
+          document.querySelector('.buttons-container').style.display = 'none';
+          
+          // 3. Pokaż wiadomość
+          const successMsg = document.getElementById('valentineSuccess');
+          successMsg.style.display = 'block';
+          
+          // Opcjonalnie: Scroll do wiadomości, żeby na pewno zauważyła
+          successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
   }
 }
 
@@ -225,3 +235,4 @@ musicBtn.addEventListener('click', () => {
 document.getElementById("startBtn").addEventListener("click", () => {
   document.getElementById("history-start").scrollIntoView({ behavior: "smooth" });
 });
+
