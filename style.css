@@ -180,3 +180,11 @@ footer { padding: 20px; }
   box-shadow: 0 5px 20px rgba(214, 51, 132, 0.3);
   animation: fadeIn 1s forwards;
 }
+
+.ps-text {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.9em; /* Troszkę mniejsze */
+  color: #8b2f3c;   /* Kolor ciemnoczerwony */
+  font-weight: bold;
+}
